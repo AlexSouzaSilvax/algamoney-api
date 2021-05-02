@@ -1,4 +1,4 @@
-package br.com.algaworks.algamoney.api.exceptionHandler;
+package br.com.algaworks.algamoney.api;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,11 +34,11 @@ public class AlgaMoneyExceptionHandler extends ResponseEntityExceptionHandler {
 	}
 
 	@Override
-	public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers,
-			HttpStatus status, WebRequest request) {
+	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+			HttpHeaders headers, HttpStatus status, WebRequest request) {
 
 		List<Erro> erros = criarListaErros(ex.getBindingResult());
-		return handleExceptionInternal(ex, erros, headers, HttpStatus.BAD_REQUEST, request);
+		return handleExceptionInternal(ex, erros, headers, HttpStatus.CREATED, request);
 	}
 
 	private List<Erro> criarListaErros(BindingResult bindingResult) {
